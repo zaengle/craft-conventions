@@ -1,0 +1,58 @@
+{
+  "name": "zaengle/craft-conventions",
+  "description": "Craft Conventions",
+  "type": "craft-plugin",
+  "version": "1.0.0",
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "craft-plugin",
+    "conventions"
+  ],
+  "support": {
+    "docs": "https://github.com/zaengle/craft-conventions/blob/master/README.md",
+    "issues": "https://github.com/zaengle/craft-conventions/issues"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Zaengle Corp",
+      "homepage": "https://zaengle.com/"
+    }
+  ],
+  "require-dev": {
+    "craftcms/cms": "^4.0.0",
+    "codeception/codeception": "^4.0",
+    "vlucas/phpdotenv": "^3.0",
+    "phpstan/phpstan": "^1.7",
+    "symplify/easy-coding-standard": "^10.2",
+    "craftcms/ecs": "dev-main"
+  },
+  "autoload": {
+    "psr-4": {
+      "zaengle\\conventions\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "Conventions",
+    "handle": "conventions",
+    "developer": "Zaengle Corp",
+    "developerUrl": "https://zaengle.com/",
+    "documentationUrl": "https://github.com/zaengle/craft-conventions/blob/master/README.md",
+    "changelogUrl": "https://raw.githubusercontent.com/zaengle/craft-conventions/master/CHANGELOG.md",
+    "components": {
+      "pattern": "zaengle\\conventions\\services\\Pattern",
+      "scaffold": "zaengle\\conventions\\services\\Scaffold"
+    },
+    "class": "zaengle\\conventions\\Conventions"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
