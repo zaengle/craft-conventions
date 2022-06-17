@@ -16,18 +16,24 @@ class InvalidPatternModelException extends \Exception
 {
     private Pattern $pattern;
 
-    public function __construct(Pattern $pattern) {
+    public function __construct(Pattern $pattern)
+    {
         $this->pattern = $pattern;
         parent::__construct($this->getName());
     }
     
     public function getName(): string
     {
-        return "The Pattern {$this->pattern->template} is not valid";
+        return "Invalid Pattern usage: {$this->getErrorString()}";
     }
 
     public function getPattern(): Pattern
     {
         return $this->pattern;
+    }
+
+    protected function getErrorString()
+    {
+      return implode(', ', array_keys($this->pattern->getErrors()));
     }
 }
