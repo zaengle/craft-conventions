@@ -43,7 +43,7 @@ class Pattern extends Model
      * Get context with the required keys
      * @return array ctx
      */
-    public function getEnsuredContext(): array
+    public function getContext(): array
     {
         return array_merge_recursive($this->type->getEnsuredContext(), $this->context);
     }
@@ -55,27 +55,32 @@ class Pattern extends Model
      */
     public function validateContext(string $attribute): void
     {
-        $this->validateRejectContextKeys();
-        $this->validateRequiredContextKeys();
+        $this->validateRejectContextKeys($attribute);
+        $this->validateRequiredContextKeys($attribute);
     }
 
-    /**
-     * Ensure non-permitted ctx keys not passed
-     * @return void 
-     */
-    protected function validateRejectContextKeys(): void
+  /**
+   * Ensure non-permitted keys not passed in the context
+   * @param string $attribute
+   */
+    protected function validateRejectContextKeys(string $attribute): void
     {
         foreach ($this->type->getRejectedContextKeys() as $key) {
             if (array_key_exists($key, $this->context)) {
-                $this->addError("Key `{$key}` is not permitted in context passed to Pattern {$this->template}");
+                $this->addError($attribute, "Key `$key` is not permitted in the context passed to Pattern `$this->template`");
             }
         }
     }
-    protected function validateRequiredContextKeys(): void
+
+  /**
+   * Ensure required keys are present in the context
+   * @param string $attribute
+   */
+    protected function validateRequiredContextKeys(string $attribute): void
     {
         foreach ($this->type->getRequiredContextKeys() as $key) {
-            if (!array_key_exists($key, $this->context)) {
-                $this->addError("Required key `{$key}` is missing from context passed to Pattern {$this->template}");
+            if (!array_key_exists($key, $this->getContext())) {
+                $this->addError($attribute, "Required key `$key` is missing from the context passed to Pattern `$this->template`");
             }
         }
     }

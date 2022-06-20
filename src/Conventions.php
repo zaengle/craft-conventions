@@ -18,6 +18,7 @@ use craft\web\twig\variables\CraftVariable;
 use yii\base\Event;
 use yii\log\FileTarget;
 
+use yii\log\Logger;
 use zaengle\conventions\models\Settings;
 use zaengle\conventions\services\Pattern as PatternService;
 use zaengle\conventions\services\PatternType as PatternTypeService;
@@ -47,7 +48,7 @@ class Conventions extends Plugin
     /**
      * @var Conventions
      */
-    public static $plugin;
+    public static Conventions $plugin;
 
     // Public Properties
     // =========================================================================
@@ -100,24 +101,24 @@ class Conventions extends Plugin
     // Static Methods
     // =========================================================================
 
-    public static function log(mixed $message, int $level = \yii\log\Logger::LEVEL_INFO): void
+    public static function log(mixed $message, int $level = Logger::LEVEL_INFO): void
     {
         Craft::getLogger()->log($message, $level, 'conventions');
     }
 
     public static function info(mixed $message): void
     {
-        self::log($message, \yii\log\Logger::LEVEL_INFO);
+        self::log($message);
     }
 
     public static function warning(mixed $message): void
     {
-        self::log($message, \yii\log\Logger::LEVEL_WARNING);
+        self::log($message, Logger::LEVEL_WARNING);
     }
 
     public static function error(mixed $message): void
     {
-        self::log($message, \yii\log\Logger::LEVEL_ERROR);
+        self::log($message, Logger::LEVEL_ERROR);
     }
 
     // Protected Methods
@@ -139,7 +140,7 @@ class Conventions extends Plugin
     protected function configureLogger(): void
     {
         Craft::getLogger()->dispatcher->targets[] = new FileTarget([
-        'logFile' => Craft::getAlias('@storage/logs/') . "{$this->handle}.log",
+        'logFile' => Craft::getAlias('@storage/logs/') . "$this->handle.log",
         'categories' => [ $this->handle ],
     ]);
     }
@@ -158,7 +159,7 @@ class Conventions extends Plugin
     protected function afterInstall(): void
     {
         $configSource = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config.example.php';
-        $configTarget = \Craft::$app->getConfig()->configDir . DIRECTORY_SEPARATOR . 'conventions.php';
+        $configTarget = Craft::$app->getConfig()->configDir . DIRECTORY_SEPARATOR . 'conventions.php';
 
         if (!file_exists($configTarget)) {
             copy($configSource, $configTarget);

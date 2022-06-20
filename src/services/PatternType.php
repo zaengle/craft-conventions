@@ -13,7 +13,7 @@ namespace zaengle\conventions\services;
 use craft\base\Component;
 
 use zaengle\conventions\Conventions;
-use zaengle\conventions\errors\InvaildPatternTypeConfigException;
+use zaengle\conventions\errors\InvalidPatternTypeConfigException;
 use zaengle\conventions\models\PatternType as PatternTypeModel;
 use zaengle\conventions\models\Settings;
 
@@ -24,10 +24,7 @@ use zaengle\conventions\models\Settings;
  */
 class PatternType extends Component
 {
-    /**
-     * @var Settings
-     */
-    protected $settings;
+    protected Settings $settings;
     public array $patternTypes = [];
 
 
@@ -38,17 +35,18 @@ class PatternType extends Component
     {
         parent::init();
 
+
         $this->settings = Conventions::$plugin->getSettings();
 
         $this->patternTypes = array_reduce(
-      array_keys($this->settings->patterns),
-      function($carry, $key) {
-          $carry[$key] = $this->expandConfig($key);
+            array_keys($this->settings->patterns),
+            function($carry, $key) {
+                $carry[$key] = $this->expandConfig($key);
 
-          return $carry;
-      },
-      []
-    );
+                return $carry;
+            },
+          []
+        );
     }
 
     public function all(): array
@@ -59,7 +57,7 @@ class PatternType extends Component
     /**
      * Get a PatternType by its handle
      * @param  string $handle
-     * @return \zaengle\conventions\models\PatternType
+     * @return PatternTypeModel
      */
     public function get(string $handle): PatternTypeModel
     {
@@ -76,37 +74,27 @@ class PatternType extends Component
         return array_key_exists($handle, $this->settings->patterns);
     }
 
-    /**
-     * Expand a shorthand Pattern config to a full config
-     * @param  string $handle
-     * @return \zaengle\conventions\models\PatternType
-     */
+  /**
+   * Expand a shorthand Pattern config to a full config
+   *
+   * @param string $handle
+   *
+   * @return PatternTypeModel
+   * @throws InvalidPatternTypeConfigException
+   */
     protected function expandConfig(string $handle): PatternTypeModel
     {
         $rawConfig = $this->settings->patterns[$handle];
 
-        if ($this->isShorthand($rawConfig)) {
-            $config = $this->settings->expandPatternConfig($handle, $rawConfig);
-        } else {
-            $config = $rawConfig;
-        }
+        $config = $this->settings->expandPatternConfig($handle, $rawConfig);
 
         $patternType = new PatternTypeModel($config);
 
         if (!$patternType->validate()) {
-            throw new InvaildPatternTypeConfigException("Invalid config provided for pattern: ${handle}");
+            throw new InvalidPatternTypeConfigException("Invalid config provided for pattern: $handle");
         }
 
         return $patternType;
     }
 
-    /**
-     * Determine if a Pattern config is in the shorthand form
-     * @param  array   $patternConfig
-     * @return boolean
-     */
-    protected function isShorthand(string|array $patternConfig): bool
-    {
-        return is_string($patternConfig);
-    }
 }

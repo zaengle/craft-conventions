@@ -10,9 +10,10 @@
 
 namespace zaengle\conventions\errors;
 
+use Exception;
 use zaengle\conventions\models\Pattern as Pattern;
 
-class InvalidPatternModelException extends \Exception
+class InvalidPatternModelException extends Exception
 {
     private Pattern $pattern;
 
@@ -21,7 +22,7 @@ class InvalidPatternModelException extends \Exception
         $this->pattern = $pattern;
         parent::__construct($this->getName());
     }
-    
+
     public function getName(): string
     {
         return "Invalid Pattern usage: {$this->getErrorString()}";
@@ -32,7 +33,7 @@ class InvalidPatternModelException extends \Exception
         return $this->pattern;
     }
 
-    protected function getErrorString()
+    protected function getErrorString(): string
     {
       return implode(', ', array_keys($this->pattern->getErrors()));
     }

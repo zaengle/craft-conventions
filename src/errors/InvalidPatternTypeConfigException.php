@@ -12,12 +12,12 @@ namespace zaengle\conventions\errors;
 
 use yii\base\Exception;
 
-class InvaildPatternTypeConfigException extends Exception
+class InvalidPatternTypeConfigException extends Exception
 {
     /**
      * @inheritdoc
      */
-    public function getName()
+    public function getName(): string
     {
         return "The Pattern Type config provided is not valid";
     }

@@ -11,6 +11,7 @@
 namespace zaengle\conventions\models;
 
 use craft\base\Model;
+use craft\helpers\ArrayHelper;
 
 /**
  * @author    Zaengle Corp
@@ -19,6 +20,11 @@ use craft\base\Model;
  */
 class PatternType extends Model
 {
+  /**
+   * @method getEnsuredContext()
+   * @method getRejectedContextKeys()
+   * @method getRequiredContextKeys()
+   */
     // Public Properties
     // =========================================================================
     public array $params;
@@ -34,30 +40,39 @@ class PatternType extends Model
     public function rules(): array
     {
         return [
-      [
-        ['resolver', 'scaffold'], 'required',
-      ],
-      [
-        ['params', 'resolver', 'scaffold'], 'array',
-      ],
-      [
-        'params', 'default', 'value' => [
-          'ensure' => [],
-          'reject' => [],
-          'require' => [],
-        ],
-      ],
-      ['resolver', 'validateResolverConfig'],
-      // ['scaffold', 'validateScaffoldConfig'],
-      // ['param', 'validateParamConfig'],
-    ];
+          [
+            ['resolver', 'scaffold'], 'required',
+          ],
+          [
+            ['params', 'resolver', 'scaffold'], 'validateIsAssoc',
+          ],
+          [
+            'params', 'default', 'value' => [
+              'ensure' => [],
+              'reject' => [],
+              'require' => [],
+            ],
+          ],
+          ['resolver', 'validateResolverConfig'],
+        ];
     }
 
-    public function validateResolverConfig(string $attribute): bool
+    public function validateResolverConfig(string $attribute): void
     {
-        // dd('validate', $this->$attribute);
-        // @todo
-        return true;
+        $resolverConfig = $this->$attribute;
+        if (!array_key_exists('class', $resolverConfig)) {
+            $this->addError($attribute, 'Resolver class not set');
+        }
+        if (!class_exists($resolverConfig['class'])) {
+            $this->addError($attribute, 'Resolver class does not exist');
+        }
+        if (!array_key_exists('settings', $resolverConfig)) {
+            $this->addError($attribute, 'Resolver settings missing');
+        }
+    }
+    public function validateIsAssoc(string $attribute): bool
+    {
+        return is_array($this->$attribute) && ArrayHelper::isAssociative($this->$attribute);
     }
 
     public function getEnsuredContext(): array
@@ -69,7 +84,7 @@ class PatternType extends Model
     {
         return $this->params['require'];
     }
-  
+
     public function getRejectedContextKeys(): array
     {
         return $this->params['reject'];

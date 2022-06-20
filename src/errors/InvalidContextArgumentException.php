@@ -17,7 +17,7 @@ class InvalidContextArgumentException extends Exception
     /**
      * @inheritdoc
      */
-    public function getName()
+    public function getName(): string
     {
         return "Context argument must be an associative array";
     }
