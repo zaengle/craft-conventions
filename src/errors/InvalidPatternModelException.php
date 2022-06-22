@@ -25,7 +25,7 @@ class InvalidPatternModelException extends Exception
 
     public function getName(): string
     {
-        return "Invalid Pattern usage: {$this->getErrorString()}";
+        return "Invalid Pattern usage - {$this->getErrorString()}";
     }
 
     public function getPattern(): Pattern
@@ -35,6 +35,12 @@ class InvalidPatternModelException extends Exception
 
     protected function getErrorString(): string
     {
-      return implode(', ', array_keys($this->pattern->getErrors()));
+        $errors = $this->pattern->getErrors();
+
+        return array_reduce(array_keys($errors), function($msg, $attrName) use ($errors) {
+            return $msg . $attrName . ' attribute: ' . join(', ', $errors[$attrName]) . ' ';
+        }, "");
+
+        return implode(', ', array_values($this->pattern->getErrors()));
     }
 }
