@@ -27,14 +27,12 @@ class PatternType extends Component
     protected Settings $settings;
     public array $patternTypes = [];
 
-
     // Public Methods
     // =========================================================================
 
     public function init(): void
     {
         parent::init();
-
 
         $this->settings = Conventions::$plugin->getSettings();
 
@@ -96,5 +94,4 @@ class PatternType extends Component
 
         return $patternType;
     }
-
 }

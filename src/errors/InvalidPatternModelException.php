@@ -37,10 +37,12 @@ class InvalidPatternModelException extends Exception
     {
         $errors = $this->pattern->getErrors();
 
-        return array_reduce(array_keys($errors), function($msg, $attrName) use ($errors) {
-            return $msg . $attrName . ' attribute: ' . join(', ', $errors[$attrName]) . ' ';
-        }, "");
-
-        return implode(', ', array_values($this->pattern->getErrors()));
+        return array_reduce(
+          array_keys($errors),
+          function($msg, $attrName) use ($errors) {
+              return $msg . $attrName . ' attribute: ' . join(', ', $errors[$attrName]) . ' ';
+          },
+          ""
+        );
     }
 }

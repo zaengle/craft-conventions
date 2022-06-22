@@ -52,7 +52,6 @@ class Pattern extends Component
         $pattern->type = $patternType;
         $pattern->context = $ctx;
 
-
         if ($pattern->validate()) {
             return Craft::$app->view->renderTemplate($pattern->template, $pattern->getContext());
         } else {

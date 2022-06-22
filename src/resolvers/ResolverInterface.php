@@ -24,15 +24,15 @@ interface ResolverInterface
      */
     public function resolve(string $path): ?string;
 
-  /**
-   * Called when a path cannot be resolved to a template path
-   *
-   * Intended for audit / debug purposes
-   *
-   * @param string    $resolvedPath
-   * @param Exception $exception
-   *
-   * @return void
-   */
+    /**
+     * Called when a path cannot be resolved to a template path
+     *
+     * Intended for audit / debug purposes
+     *
+     * @param string    $resolvedPath
+     * @param Exception $exception
+     *
+     * @return void
+     */
     public function handleMissing(string $resolvedPath, Exception $exception): void;
 }

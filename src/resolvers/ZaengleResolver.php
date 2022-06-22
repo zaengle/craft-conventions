@@ -46,6 +46,7 @@ class ZaengleResolver extends Component implements ResolverInterface
     {
         Conventions::error("Missing template: $this->initialPath");
     }
+
     protected function assemblePaths(string $path): array
     {
         $baseArray = [];
@@ -65,5 +66,4 @@ class ZaengleResolver extends Component implements ResolverInterface
 
         return $baseArray;
     }
-
 }

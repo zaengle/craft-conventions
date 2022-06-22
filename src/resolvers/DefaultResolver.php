@@ -54,6 +54,7 @@ class DefaultResolver extends Component implements ResolverInterface
     {
         Conventions::error("Missing template: $this->initialPath");
     }
+
     protected function assemblePath(string $path): string
     {
         return rtrim($this->basePath, '/') . '/' . ltrim($path, '/');

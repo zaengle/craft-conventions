@@ -127,22 +127,22 @@ class Conventions extends Plugin
     protected function bindEventHandlers(): void
     {
         Event::on(
-      CraftVariable::class,
-      CraftVariable::EVENT_INIT,
-      function(Event $event) {
-          /** @var CraftVariable $variable */
-          $variable = $event->sender;
-          $variable->set($this->handle, ConventionsVariable::class);
-      }
-    );
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function(Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set($this->handle, ConventionsVariable::class);
+            }
+        );
     }
 
     protected function configureLogger(): void
     {
         Craft::getLogger()->dispatcher->targets[] = new FileTarget([
-        'logFile' => Craft::getAlias('@storage/logs/') . "$this->handle.log",
-        'categories' => [ $this->handle ],
-    ]);
+            'logFile' => Craft::getAlias('@storage/logs/') . "$this->handle.log",
+            'categories' => [ $this->handle ],
+        ]);
     }
 
     /**

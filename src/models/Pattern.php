@@ -40,6 +40,7 @@ class Pattern extends Model
             ['context', 'validateContext'],
         ];
     }
+
     /**
      * Get context with the required keys
      * @return array ctx
@@ -89,6 +90,7 @@ class Pattern extends Model
             $this->addError($attribute, 'must be an associative array');
         }
     }
+
   /**
    * Ensure non-permitted keys not passed in the context
    * @param string $attribute
@@ -114,5 +116,4 @@ class Pattern extends Model
             }
         }
     }
-
 }
