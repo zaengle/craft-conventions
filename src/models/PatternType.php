@@ -29,7 +29,6 @@ class PatternType extends Model
     // =========================================================================
     public array $params;
     public array $resolver;
-    public array $scaffold;
 
     // Public Methods
     // =========================================================================
@@ -41,10 +40,10 @@ class PatternType extends Model
     {
         return [
           [
-            ['resolver', 'scaffold'], 'required',
+            ['resolver'], 'required',
           ],
           [
-            ['params', 'resolver', 'scaffold'], 'validateIsAssoc',
+            ['params', 'resolver'], 'validateIsAssoc',
           ],
           [
             'params', 'default', 'value' => [
