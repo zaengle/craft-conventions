@@ -11,6 +11,7 @@
 namespace zaengle\conventions\models;
 
 use craft\base\Model;
+use craft\helpers\ArrayHelper;
 
 /**
  * @author    Zaengle Corp
@@ -35,7 +36,7 @@ class Pattern extends Model
     {
         return [
             ['template', 'string'],
-            [['template', 'context', 'type'], 'required'],
+            [['template', 'type'], 'required'],
             ['context', 'validateContext'],
         ];
     }
@@ -45,7 +46,29 @@ class Pattern extends Model
      */
     public function getContext(): array
     {
-        return array_merge_recursive($this->type->getEnsuredContext(), $this->context);
+        $ctx = [];
+        $ensured = $this->type->getEnsuredContext();
+
+        $allKeys = array_unique(
+            array_merge(
+                array_keys($ensured), array_keys($this->context)
+            )
+        );
+
+        foreach ($allKeys as $key){
+            if (!isset($this->context[$key])) {
+                // use fallback
+                $ctx[$key] = $ensured[$key];
+            } elseif (!is_array($this->context[$key])) {
+                // don't merge
+                $ctx[$key] = $this->context[$key];
+            } else {
+                //merge
+                $ctx[$key] = array_merge_recursive($ensured[$key] ?? [], $this->context[$key] ?? [] );
+            }
+        }
+
+        return $ctx;
     }
 
     /**
@@ -55,10 +78,17 @@ class Pattern extends Model
      */
     public function validateContext(string $attribute): void
     {
+        $this->validateIsAssoc($attribute);
         $this->validateRejectContextKeys($attribute);
         $this->validateRequiredContextKeys($attribute);
     }
 
+    public function validateIsAssoc(string $attribute): void
+    {
+        if (!is_array($this->$attribute) || !ArrayHelper::isAssociative($this->$attribute)) {
+            $this->addError($attribute, 'must be an associative array');
+        }
+    }
   /**
    * Ensure non-permitted keys not passed in the context
    * @param string $attribute
@@ -84,4 +114,5 @@ class Pattern extends Model
             }
         }
     }
+
 }
