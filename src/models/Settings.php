@@ -10,7 +10,6 @@
 
 namespace zaengle\conventions\models;
 
-use Closure;
 use craft\base\Model;
 
 use zaengle\conventions\resolvers\DefaultResolver;
@@ -27,7 +26,7 @@ class Settings extends Model
     // =========================================================================
 
     public array $patterns;
-    public Closure $expander;
+    public array $defaults;
 
     // Public Methods
     // =========================================================================
@@ -38,64 +37,32 @@ class Settings extends Model
     public function rules(): array
     {
         return [
-      ['patterns', 'array'],
-      ['expander', Closure::class ],
-    ];
+            ['patterns', 'array'],
+            ['defaults', 'array' ],
+        ];
     }
 
     public function expandPatternConfig(string $handle, string|array $value): array
     {
-        if (isset($this->expander) && is_callable($this->expander)) {
-            return call_user_func($this->expander, $handle, $value);
-        } else {
-            return self::defaultExpandPatternType($value);
-        }
-    }
-
-    public static function defaultExpandPatternType(string|array $value): array
-    {
         if (self::isShorthand($value)) {
-          return self::expandShorthandConfig($value);
+          return $this->expandShorthandConfig($value);
         }
 
-        return self::expandArrayConfig($value);
+        return $this->expandArrayConfig($value);
     }
 
-    public static function expandShorthandConfig(string $value): array
+    public function expandShorthandConfig(string $value): array
     {
-
-        return self::expandArrayConfig([
+        return $this->expandArrayConfig([
             'resolver' => [
                 'settings' => [ 'basePath' => $value ],
             ],
         ]);
     }
 
-    public static function expandArrayConfig(array $config): array
+    public function expandArrayConfig(array $config): array
     {
-        return array_merge_recursive([
-            'resolver' => [
-                'class' => DefaultResolver::class,
-                'settings' => [],
-            ],
-            // Ensure that the following keys exist in the ctx passed to the pattern template
-            'params' => [
-                // Named params that *will be created if omitted*  in the ctx passed to the pattern template
-                'ensure' => [
-                    'data' => [],
-                    'opts' => [],
-                ],
-                // Named params that *must* be set in the ctx passed to the pattern template,
-                // or an error is thrown (in devMode)
-                'require' => [],
-                // Named params that *must not* be set in the ctx passed to the pattern template,
-                // or an error is thrown (in devMode)
-                'reject' => [],
-            ],
-
-            // This is where the plugin can find the Scaffolder for this PatternType
-            'scaffold' => DefaultScaffolder::class,
-        ], $config);
+        return array_merge_recursive($this->defaults, $config);
     }
 
     /**
