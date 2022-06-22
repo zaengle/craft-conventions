@@ -60,18 +60,14 @@ class PatternType extends Model
     {
         $resolverConfig = $this->$attribute;
         if (!array_key_exists('class', $resolverConfig)) {
-            $this->addError($attribute, 'Resolver class not set');
+            $this->addError($attribute, 'class not set');
         }
         if (!class_exists($resolverConfig['class'])) {
-            $this->addError($attribute, 'Resolver class does not exist');
+            $this->addError($attribute, 'class does not exist');
         }
         if (!array_key_exists('settings', $resolverConfig)) {
-            $this->addError($attribute, 'Resolver settings missing');
+            $this->addError($attribute, 'settings missing');
         }
-    }
-    public function validateIsAssoc(string $attribute): bool
-    {
-        return is_array($this->$attribute) && ArrayHelper::isAssociative($this->$attribute);
     }
 
     public function getEnsuredContext(): array
@@ -87,5 +83,12 @@ class PatternType extends Model
     public function getRejectedContextKeys(): array
     {
         return $this->params['reject'];
+    }
+
+    public function validateIsAssoc(string $attribute): void
+    {
+        if (!is_array($this->$attribute) || !ArrayHelper::isAssociative($this->$attribute)) {
+            $this->addError($attribute, 'must be an associative array');
+        }
     }
 }
