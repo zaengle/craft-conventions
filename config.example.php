@@ -76,7 +76,7 @@ return [
           ],
           // a `data` key **must** be present in the ctx passed to the part, or else an error thrown (`devMode` only)
       ],
-  ]
+  ],
   'defaults' => [
         'resolver' => [
             'class' => DefaultResolver::class,
