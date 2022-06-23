@@ -64,18 +64,18 @@ return [
       /**
        * Customised / options syntax
        */
-      'partial' => [
-          // A custom resolver could let us do things like
-          // - resolve wireframing patterns to vendor/
-          // - recursively resolve patterns by walking up the fs
-          // - audit component usage for consumption elsewhere
-          'resolver' => [
-              'class' => '\\module\\resolvers\\CustomResolver',
-              // it also might not require a `basePath`
-              'settings' => [],
-          ],
-          // a `data` key **must** be present in the ctx passed to the part, or else an error thrown (`devMode` only)
-      ],
+      // 'partial' => [
+      //     // A custom resolver could let us do things like
+      //     // - resolve wireframing patterns to vendor/
+      //     // - recursively resolve patterns by walking up the fs
+      //     // - audit component usage for consumption elsewhere
+      //     'resolver' => [
+      //         'class' => '\\module\\resolvers\\CustomResolver',
+      //         // it also might not require a `basePath`
+      //         'settings' => [],
+      //     ],
+      //     // a `data` key **must** be present in the ctx passed to the part, or else an error thrown (`devMode` only)
+      // ],
   ],
   'defaults' => [
         'resolver' => [
