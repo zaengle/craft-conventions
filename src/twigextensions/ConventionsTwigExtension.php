@@ -14,6 +14,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 use zaengle\conventions\Conventions;
+use zaengle\conventions\services\Props as PropsService;
 
 /**
  * @author    Zaengle Corp
@@ -46,9 +47,9 @@ class ConventionsTwigExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        // Can we just return $this->generatePatternHelpers? Or just inline the generatePatternHelpers function altogether?
         return [
-          ...$this->generatePatternHelpers(),
+            ...$this->generatePatternHelpers(),
+            new TwigFunction('defineProps', [Conventions::getInstance()->props, 'defineProps']),
         ];
     }
 

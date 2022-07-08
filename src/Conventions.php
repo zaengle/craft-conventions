@@ -13,17 +13,17 @@ namespace zaengle\conventions;
 use Craft;
 use craft\base\Plugin;
 use craft\console\Application as ConsoleApplication;
-
 use craft\web\twig\variables\CraftVariable;
+
 use yii\base\Event;
 use yii\log\FileTarget;
-
 use yii\log\Logger;
+
 use zaengle\conventions\models\Settings;
 use zaengle\conventions\services\Pattern as PatternService;
 use zaengle\conventions\services\PatternType as PatternTypeService;
+use zaengle\conventions\services\Props as PropsService;
 use zaengle\conventions\services\Scaffold as ScaffoldService;
-
 use zaengle\conventions\twigextensions\ConventionsTwigExtension;
 use zaengle\conventions\variables\ConventionsVariable;
 
@@ -37,6 +37,7 @@ use zaengle\conventions\variables\ConventionsVariable;
  * @property  PatternService $pattern
  * @property  PatternTypeService $patternTypes
  * @property  ScaffoldService $scaffold
+ * @property  PropsService $props
  *
  * @method    Settings getSettings()
  */
@@ -86,10 +87,11 @@ class Conventions extends Plugin
         }
 
         $this->setComponents([
-      'pattern' => PatternService::class,
-      'patternTypes' => PatternTypeService::class,
-      'scaffold' => ScaffoldService::class,
-    ]);
+            'pattern' => PatternService::class,
+            'patternTypes' => PatternTypeService::class,
+            'props' => PropsService::class,
+            'scaffold' => ScaffoldService::class,
+        ]);
 
         $this->configureLogger();
 

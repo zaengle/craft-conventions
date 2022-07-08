@@ -13,6 +13,8 @@ namespace zaengle\conventions\models;
 use craft\base\Model;
 use craft\helpers\ArrayHelper;
 
+use zaengle\conventions\models\RelaxedModel;
+
 /**
  * @author    Zaengle Corp
  * @package   zaengle\conventions
@@ -57,15 +59,21 @@ class Pattern extends Model
         );
 
         foreach ($allKeys as $key){
+            $relaxedModel = new RelaxedModel();
+
             if (!isset($this->context[$key])) {
                 // use fallback
-                $ctx[$key] = $ensured[$key];
+                $relaxedModel->setAttributes($ensured[$key]);
+                $ctx[$key] = $RelaxedModel;
             } elseif (!is_array($this->context[$key])) {
-                // don't merge
+                // don't merge, value is probably a query / element
                 $ctx[$key] = $this->context[$key];
             } else {
                 //merge
-                $ctx[$key] = array_merge_recursive($ensured[$key] ?? [], $this->context[$key] ?? [] );
+                $relaxedModel->setAttributes(
+                    array_merge_recursive($ensured[$key] ?? [], $this->context[$key] ?? [] )
+                );
+                $ctx[$key] = $relaxedModel;
             }
         }
 
@@ -111,7 +119,7 @@ class Pattern extends Model
     protected function validateRequiredContextKeys(string $attribute): void
     {
         foreach ($this->type->getRequiredContextKeys() as $key) {
-            if (!array_key_exists($key, $this->getContext())) {
+            if (!property_exists($this->getContext(), $key)) {
                 $this->addError($attribute, "Required key `$key` is missing from the context passed to Pattern `$this->template`");
             }
         }
