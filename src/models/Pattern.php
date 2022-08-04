@@ -10,10 +10,14 @@
 
 namespace zaengle\conventions\models;
 
+use Craft;
 use craft\base\Model;
 use craft\helpers\ArrayHelper;
 
 use zaengle\conventions\models\RelaxedModel;
+
+use zaengle\conventions\resolvers\ResolverInterface;
+use zaengle\conventions\errors\InvalidPatternModelException;
 
 /**
  * @author    Zaengle Corp
@@ -24,8 +28,10 @@ class Pattern extends Model
 {
     // Public Properties
     // =========================================================================
-    public string $template;
+    private ?string $_template = null;
+    public string|array $paths = [];
     public array $context;
+    public ResolverInterface $resolver;
     public PatternType $type;
 
     // Public Methods
@@ -37,41 +43,71 @@ class Pattern extends Model
     public function rules(): array
     {
         return [
-            ['template', 'string'],
-            [['template', 'type'], 'required'],
             ['context', 'validateContext'],
         ];
     }
 
+    /**
+     * Get the resolved template
+     */
+    public function getTemplate(): ?string
+    {
+        if (!$this->_template) {
+            $this->_template = $this->resolver->resolve($this->paths);
+        }
+
+        return $this->_template;
+    }
+
+    /**
+     * Render the Pattern to HTML
+     */
+    public function render(): ?string
+    {
+        if (!$this->validate()) {
+            throw new InvalidPatternModelException($this);
+        }
+        if ($this->template && Craft::$app->view->doesTemplateExist($this->template)) {
+            return Craft::$app->view->renderTemplate($this->template, $this->getContext());
+        } else {
+            return $this->handleMissing();
+        }
+    }
+
+    protected function handleMissing(): ?string
+    {
+        if ($template = $this->resolver->handleMissing()) {
+            return Craft::$app->view->renderTemplate($template, [
+                'pattern' => $this,
+            ]);
+        }
+
+        return null;
+    }
     /**
      * Get context with the required keys
      * @return array ctx
      */
     public function getContext(): array
     {
-        $ctx = [];
+        $ctx = [
+            '_pattern' => $this,
+        ];
         $ensured = $this->type->getEnsuredContext();
 
-        $allKeys = array_unique(
-            array_merge(
-                array_keys($ensured), array_keys($this->context)
-            )
-        );
-
-        foreach ($allKeys as $key){
+        foreach ($this->getAllKeys($ensured, $this->context) as $key) {
             $relaxedModel = new RelaxedModel();
 
             if (!isset($this->context[$key])) {
                 // use fallback
                 $relaxedModel->setAttributes($ensured[$key]);
-                $ctx[$key] = $RelaxedModel;
+                $ctx[$key] = $relaxedModel;
             } elseif (!is_array($this->context[$key])) {
                 // don't merge, value is probably a query / element
                 $ctx[$key] = $this->context[$key];
             } else {
-                //merge
                 $relaxedModel->setAttributes(
-                    array_merge_recursive($ensured[$key] ?? [], $this->context[$key] ?? [] )
+                    array_merge($ensured[$key] ?? [], $this->context[$key] ?? [] )
                 );
                 $ctx[$key] = $relaxedModel;
             }
@@ -123,5 +159,18 @@ class Pattern extends Model
                 $this->addError($attribute, "Required key `$key` is missing from the context passed to Pattern `$this->template`");
             }
         }
+    }
+
+    /**
+     *
+     */
+    protected function getAllKeys(...$arrays): array
+    {
+        return array_unique(
+            array_merge(
+                ...array_map(fn ($arr) => array_keys($arr), $arrays)
+            )
+        );
+
     }
 }

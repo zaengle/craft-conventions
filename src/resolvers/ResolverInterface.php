@@ -10,19 +10,20 @@
 
 namespace zaengle\conventions\resolvers;
 
-use yii\base\Exception;
-
 interface ResolverInterface
 {
     public function __construct(array $settings);
 
     /**
      * Resolve a string path to a Pattern
-     * @param  string $path   In normal usage this will be a directory
-     *                        sub/path/to/a-template with no file extension
+     *
+     * @param  string|array  $paths  In normal usage this will be a directory
+     *                              sub/path/to/a-template with no file
+     *                               extension or an array of such paths
+     *
      * @return ?string        A valid Craft template path
      */
-    public function resolve(string $path): ?string;
+    public function resolve(string|array $paths): ?string;
 
     /**
      * Called when a path cannot be resolved to a template path
@@ -30,9 +31,8 @@ interface ResolverInterface
      * Intended for audit / debug purposes
      *
      * @param string    $resolvedPath
-     * @param Exception $exception
      *
      * @return void
      */
-    public function handleMissing(string $resolvedPath, Exception $exception): void;
+    public function handleMissing(): ?string;
 }

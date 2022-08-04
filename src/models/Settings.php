@@ -13,7 +13,6 @@ namespace zaengle\conventions\models;
 use craft\base\Model;
 
 use zaengle\conventions\resolvers\DefaultResolver;
-use zaengle\conventions\scaffold\DefaultScaffolder;
 
 /**
  * @author    Zaengle Corp
@@ -25,6 +24,7 @@ class Settings extends Model
     // Public Properties
     // =========================================================================
 
+    public string $handle;
     public array $patterns;
     public array $defaults;
 
@@ -37,6 +37,7 @@ class Settings extends Model
     public function rules(): array
     {
         return [
+            ['handle', 'string'],
             ['patterns', 'array'],
             ['defaults', 'array' ],
         ];
@@ -45,24 +46,33 @@ class Settings extends Model
     public function expandPatternConfig(string $handle, string|array $value): array
     {
         if (self::isShorthand($value)) {
-          return $this->expandShorthandConfig($value);
+          return $this->expandShorthandConfig($handle, $value);
         }
 
-        return $this->expandArrayConfig($value);
+        return $this->expandArrayConfig($handle, $value);
     }
 
-    public function expandShorthandConfig(string $value): array
+    public function expandShorthandConfig(string $handle, string $value): array
     {
-        return $this->expandArrayConfig([
+        return $this->expandArrayConfig($handle, [
             'resolver' => [
                 'settings' => [ 'basePath' => $value ],
             ],
         ]);
     }
 
-    public function expandArrayConfig(array $config): array
+    public function expandArrayConfig(string $handle, array $config): array
     {
-        return array_merge_recursive($this->defaults, $config);
+        return array_merge_recursive(
+            [
+                'handle' => $handle,
+                'resolver' => [
+                    'class' => DefaultResolver::class,
+                ],
+            ],
+            $this->defaults,
+            $config
+        );
     }
 
     /**

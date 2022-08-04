@@ -60,7 +60,7 @@ class ConventionsTwigExtension extends AbstractExtension
         foreach (Conventions::$plugin->patternTypes->all() as $handle => $patternType) {
             $result[] = new TwigFunction(
                 $handle,
-                function(string $path, array $ctx = []) use ($patternType) {
+                function(string|array $path, array $ctx = []) use ($patternType) {
                     return Conventions::$plugin->pattern->render($patternType, $path, $ctx);
                 },
                 ['is_safe' => ['html']]

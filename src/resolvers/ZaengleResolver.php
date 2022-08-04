@@ -2,7 +2,10 @@
 /**
  * Conventions plugin for Craft CMS 4.x
  *
- * Craft Conventions
+ * Legacy Zaengle Pattern resolver for older projects
+ *
+ * If you don't know what this is,
+ * you almost certainly don't want to use it 😛
  *
  * @link      https://zaengle.com/
  * @copyright Copyright (c) 2022 Zaengle Corp
@@ -12,39 +15,21 @@
 namespace zaengle\conventions\resolvers;
 
 use Craft;
-use craft\base\Component;
 
-use yii\base\Exception;
-use zaengle\conventions\Conventions;
-
-class ZaengleResolver extends Component implements ResolverInterface
+class ZaengleResolver extends DefaultResolver
 {
-    public ?string $initialPath;
-    public ?string $basePath;
-
-    public function __construct(array $settings)
+    public function resolve(string|array $paths): ?string
     {
-        parent::__construct();
-
-        $this->basePath = $settings['basePath'];
-    }
-
-    public function resolve(?string $path = null): ?string
-    {
-        foreach($this->assemblePaths($path) as $template) {
+        if (is_array($paths)) {
+            $paths = $paths[0];
+        }
+        foreach($this->assemblePaths($paths) as $template) {
             if (Craft::$app->view->doesTemplateExist($template)) {
                 return $template;
             }
         }
-        // $this->handleMissing($path, $exception);
-    }
 
-    /**
-     * @inheritDoc
-     */
-    public function handleMissing(string $resolvedPath, Exception $exception): void
-    {
-        Conventions::error("Missing template: $this->initialPath");
+        return null;
     }
 
     protected function assemblePaths(string $path): array
@@ -53,16 +38,26 @@ class ZaengleResolver extends Component implements ResolverInterface
 
         $segments = explode('/', trim($path, '/'));
 
+        $basePath = trim($this->basePath, '/');
+
         $templateName = end($segments);
 
-        foreach($segments as $segment)
+
+        foreach($segments as $ignored)
         {
             array_pop($segments);
 
-            $baseArray[] = rtrim($this->basePath, '/') . '/' . implode('/', $segments) . '/' .  $templateName;
+            $baseArray[] = implode(
+                '/',
+                [
+                    $basePath,
+                    ...$segments,
+                    $templateName,
+                ]
+            );
         }
 
-        $baseArray[] = rtrim($this->basePath, '/') . '/_missing';
+        $baseArray[] = $basePath . '/_missing';
 
         return $baseArray;
     }
