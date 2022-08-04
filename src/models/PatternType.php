@@ -20,11 +20,11 @@ use craft\helpers\ArrayHelper;
  */
 class PatternType extends Model
 {
-  /**
-   * @method getEnsuredContext()
-   * @method getRejectedContextKeys()
-   * @method getRequiredContextKeys()
-   */
+    /**
+     * @method getEnsuredContext()
+     * @method getRejectedContextKeys()
+     * @method getRequiredContextKeys()
+     */
     // Public Properties
     // =========================================================================
     public array $params;

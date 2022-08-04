@@ -72,14 +72,14 @@ class PatternType extends Component
         return array_key_exists($handle, $this->settings->patterns);
     }
 
-  /**
-   * Expand a shorthand Pattern config to a full config
-   *
-   * @param string $handle
-   *
-   * @return PatternTypeModel
-   * @throws InvalidPatternTypeConfigException
-   */
+    /**
+     * Expand a shorthand Pattern config to a full config
+     *
+     * @param string $handle
+     *
+     * @return PatternTypeModel
+     * @throws InvalidPatternTypeConfigException
+     */
     protected function expandConfig(string $handle): PatternTypeModel
     {
         $rawConfig = $this->settings->patterns[$handle];

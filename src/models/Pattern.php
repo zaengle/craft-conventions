@@ -56,7 +56,7 @@ class Pattern extends Model
             )
         );
 
-        foreach ($allKeys as $key){
+        foreach ($allKeys as $key) {
             if (!isset($this->context[$key])) {
                 // use fallback
                 $ctx[$key] = $ensured[$key];
@@ -65,7 +65,7 @@ class Pattern extends Model
                 $ctx[$key] = $this->context[$key];
             } else {
                 //merge
-                $ctx[$key] = array_merge_recursive($ensured[$key] ?? [], $this->context[$key] ?? [] );
+                $ctx[$key] = array_merge_recursive($ensured[$key] ?? [], $this->context[$key] ?? []);
             }
         }
 
@@ -91,10 +91,10 @@ class Pattern extends Model
         }
     }
 
-  /**
-   * Ensure non-permitted keys not passed in the context
-   * @param string $attribute
-   */
+    /**
+     * Ensure non-permitted keys not passed in the context
+     * @param string $attribute
+     */
     protected function validateRejectContextKeys(string $attribute): void
     {
         foreach ($this->type->getRejectedContextKeys() as $key) {
@@ -104,10 +104,10 @@ class Pattern extends Model
         }
     }
 
-  /**
-   * Ensure required keys are present in the context
-   * @param string $attribute
-   */
+    /**
+     * Ensure required keys are present in the context
+     * @param string $attribute
+     */
     protected function validateRequiredContextKeys(string $attribute): void
     {
         foreach ($this->type->getRequiredContextKeys() as $key) {

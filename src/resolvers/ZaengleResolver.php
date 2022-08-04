@@ -31,7 +31,7 @@ class ZaengleResolver extends Component implements ResolverInterface
 
     public function resolve(?string $path = null): ?string
     {
-        foreach($this->assemblePaths($path) as $template) {
+        foreach ($this->assemblePaths($path) as $template) {
             if (Craft::$app->view->doesTemplateExist($template)) {
                 return $template;
             }
@@ -55,11 +55,10 @@ class ZaengleResolver extends Component implements ResolverInterface
 
         $templateName = end($segments);
 
-        foreach($segments as $segment)
-        {
+        foreach ($segments as $segment) {
             array_pop($segments);
 
-            $baseArray[] = rtrim($this->basePath, '/') . '/' . implode('/', $segments) . '/' .  $templateName;
+            $baseArray[] = rtrim($this->basePath, '/') . '/' . implode('/', $segments) . '/' . $templateName;
         }
 
         $baseArray[] = rtrim($this->basePath, '/') . '/_missing';
