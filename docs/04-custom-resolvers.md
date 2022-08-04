@@ -52,3 +52,7 @@ return [
     ],
 ];
 ```
+
+## Context merging
+
+When applying any `ensure `context rules, context keys are merged where the value passed to the Pattern Type helper is an array or array like object. If an instance of a class (like `Element`) is passed, the default value will instead be overwritten, so as to maintain access to the class instance's methods (not just it's properties, as would be the case if it were coerced to an `array`).
