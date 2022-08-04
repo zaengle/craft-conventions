@@ -24,7 +24,7 @@ class Props extends Component
     /**
      * Update a context container with default props
      */
-    public function defineProps(array|RelaxedModel $container, array $props)
+    public function defineProps(array|RelaxedModel $container, array $props): void
     {
         if ($container instanceof RelaxedModel) {
             $container->setMissingAttributes($props);

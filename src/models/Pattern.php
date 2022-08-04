@@ -22,6 +22,8 @@ use zaengle\conventions\resolvers\ResolverInterface;
  * @author    Zaengle Corp
  * @package   zaengle\conventions
  * @since     1.0.0
+ *
+ * @property-read null|string $template
  */
 class Pattern extends Model
 {
@@ -153,16 +155,16 @@ class Pattern extends Model
     protected function validateRequiredContextKeys(string $attribute): void
     {
         foreach ($this->type->getRequiredContextKeys() as $key) {
-            if (!property_exists($this->getContext(), $key)) {
+            if (!isset($this->getContext()[$key])) {
                 $this->addError($attribute, "Required key `$key` is missing from the context passed to Pattern `$this->template`");
             }
         }
     }
 
     /**
-     *
+     * Get a deduplicated list of all the key names in a set of arrays
      */
-    protected function getAllKeys(...$arrays): array
+    protected function getAllKeys(array ...$arrays): array
     {
         return array_unique(
             array_merge(

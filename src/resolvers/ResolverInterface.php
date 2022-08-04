@@ -30,9 +30,7 @@ interface ResolverInterface
      *
      * Intended for audit / debug purposes
      *
-     * @param string    $resolvedPath
-     *
-     * @return void
+     * @return ?string
      */
     public function handleMissing(): ?string;
 }
