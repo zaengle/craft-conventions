@@ -54,6 +54,6 @@ return [
             // Named params that *must not* be set in the ctx passed to the pattern template,
             // or an error is thrown (in devMode)
             'reject' => [],
-        ]
+        ],
     ],
 ];

@@ -14,10 +14,9 @@ use Craft;
 use craft\base\Model;
 use craft\helpers\ArrayHelper;
 
-use zaengle\conventions\models\RelaxedModel;
 
-use zaengle\conventions\resolvers\ResolverInterface;
 use zaengle\conventions\errors\InvalidPatternModelException;
+use zaengle\conventions\resolvers\ResolverInterface;
 
 /**
  * @author    Zaengle Corp
@@ -97,7 +96,6 @@ class Pattern extends Model
 
         foreach ($this->getAllKeys($ensured, $this->context) as $key) {
             $relaxedModel = new RelaxedModel();
-
             if (!isset($this->context[$key])) {
                 // use fallback
                 $relaxedModel->setAttributes($ensured[$key]);
@@ -107,7 +105,7 @@ class Pattern extends Model
                 $ctx[$key] = $this->context[$key];
             } else {
                 $relaxedModel->setAttributes(
-                    array_merge($ensured[$key] ?? [], $this->context[$key] ?? [] )
+                    array_merge($ensured[$key] ?? [], $this->context[$key] ?? [])
                 );
                 $ctx[$key] = $relaxedModel;
             }
@@ -135,10 +133,10 @@ class Pattern extends Model
         }
     }
 
-  /**
-   * Ensure non-permitted keys not passed in the context
-   * @param string $attribute
-   */
+    /**
+     * Ensure non-permitted keys not passed in the context
+     * @param string $attribute
+     */
     protected function validateRejectContextKeys(string $attribute): void
     {
         foreach ($this->type->getRejectedContextKeys() as $key) {
@@ -148,10 +146,10 @@ class Pattern extends Model
         }
     }
 
-  /**
-   * Ensure required keys are present in the context
-   * @param string $attribute
-   */
+    /**
+     * Ensure required keys are present in the context
+     * @param string $attribute
+     */
     protected function validateRequiredContextKeys(string $attribute): void
     {
         foreach ($this->type->getRequiredContextKeys() as $key) {
@@ -168,9 +166,8 @@ class Pattern extends Model
     {
         return array_unique(
             array_merge(
-                ...array_map(fn ($arr) => array_keys($arr), $arrays)
+                ...array_map(fn($arr) => array_keys($arr), $arrays)
             )
         );
-
     }
 }

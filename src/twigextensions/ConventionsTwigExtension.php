@@ -14,7 +14,6 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 use zaengle\conventions\Conventions;
-use zaengle\conventions\services\Props as PropsService;
 
 /**
  * @author    Zaengle Corp

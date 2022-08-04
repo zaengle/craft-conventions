@@ -53,6 +53,11 @@
       "craftcms/plugin-installer": true
     }
   },
+  "scripts": {
+    "phpstan": "vendor/bin/phpstan analyse",
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --ansi --fix"
+  },
   "minimum-stability": "dev",
   "prefer-stable": true
 }

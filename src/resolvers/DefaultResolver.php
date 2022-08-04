@@ -36,7 +36,7 @@ class DefaultResolver extends Component implements ResolverInterface
     public function resolve(string|array $paths): ?string
     {
         if (is_string($paths)) {
-           $paths = [$paths];
+            $paths = [$paths];
         }
 
         foreach ($paths as $path) {
@@ -46,7 +46,7 @@ class DefaultResolver extends Component implements ResolverInterface
                 if (Craft::$app->view->doesTemplateExist($template)) {
                     return $template;
                 }
-            }  catch (Exception $e) {
+            } catch (Exception $e) {
                 Conventions::error("Error resolving template: " . $path . ", " . $e->getMessage());
             }
         }
@@ -67,7 +67,7 @@ class DefaultResolver extends Component implements ResolverInterface
             } else {
                 Conventions::error("Missing fallback template: " . $this->fallbackTemplate);
             }
-        }  catch (Exception $e) {
+        } catch (Exception $e) {
             Conventions::error("Error resolving fallback template: " . $this->fallbackTemplate . ", " . $e->getMessage());
         }
 

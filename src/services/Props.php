@@ -10,10 +10,7 @@
 
 namespace zaengle\conventions\services;
 
-use Craft;
 use craft\base\Component;
-use craft\base\Element;
-use craft\helpers\ArrayHelper;
 
 use zaengle\conventions\models\RelaxedModel;
 
@@ -24,9 +21,9 @@ use zaengle\conventions\models\RelaxedModel;
  */
 class Props extends Component
 {
-  /**
-   * Update a context container with defaul props
-   */
+    /**
+     * Update a context container with default props
+     */
     public function defineProps(array|RelaxedModel $container, array $props)
     {
         if ($container instanceof RelaxedModel) {

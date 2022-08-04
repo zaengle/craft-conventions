@@ -10,10 +10,10 @@
 
 namespace zaengle\conventions\models;
 
-use yii\base\UnknownPropertyException;
+use craft\base\Model;
 use yii\base\InvalidCallException;
 
-use craft\base\Model;
+use yii\base\UnknownPropertyException;
 
 /**
  * @author    Zaengle Corp
@@ -32,8 +32,8 @@ class RelaxedModel extends Model
     {
         foreach ($values as $attrName => $value) {
             if (
-                !property_exists($this, $attrName) 
-                && 
+                !property_exists($this, $attrName)
+                &&
                 !method_exists($this, $attrName)
             ) {
                 $this->setAttributes([ $attrName => $values[$attrName] ], false);
@@ -82,7 +82,7 @@ class RelaxedModel extends Model
 
     /**
      * Allow setting non-existent properties
-     * 
+     *
      * @inheritdoc
      */
     public function __set($name, $value)
@@ -98,7 +98,7 @@ class RelaxedModel extends Model
 
     /**
      * Checks for dynamic properties
-     * 
+     *
      * @inheritdoc
      */
     public function __isset($name)
@@ -108,7 +108,7 @@ class RelaxedModel extends Model
 
     /**
      * Checks for dynamic properties
-     * 
+     *
      * @inheritdoc
      */
     public function __unset($name)
@@ -137,5 +137,4 @@ class RelaxedModel extends Model
             return null;
         }
     }
-
 }

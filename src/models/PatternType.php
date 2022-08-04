@@ -20,11 +20,11 @@ use craft\helpers\ArrayHelper;
  */
 class PatternType extends Model
 {
-  /**
-   * @method getEnsuredContext()
-   * @method getRejectedContextKeys()
-   * @method getRequiredContextKeys()
-   */
+    /**
+     * @method getEnsuredContext()
+     * @method getRejectedContextKeys()
+     * @method getRequiredContextKeys()
+     */
     // Public Properties
     // =========================================================================
     public string $handle;
@@ -62,9 +62,10 @@ class PatternType extends Model
         ];
     }
 
-    public function validateResolverConfig(string $attribute): void
+    public function validateResolverConfig(string $attribute = 'resolver'): void
     {
         $resolverConfig = $this->$attribute;
+
         if (!array_key_exists('class', $resolverConfig)) {
             $this->addError($attribute, 'class not set');
         }

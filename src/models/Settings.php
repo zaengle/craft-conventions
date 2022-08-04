@@ -11,7 +11,6 @@
 namespace zaengle\conventions\models;
 
 use craft\base\Model;
-
 use zaengle\conventions\resolvers\DefaultResolver;
 
 /**
@@ -46,7 +45,7 @@ class Settings extends Model
     public function expandPatternConfig(string $handle, string|array $value): array
     {
         if (self::isShorthand($value)) {
-          return $this->expandShorthandConfig($handle, $value);
+            return $this->expandShorthandConfig($handle, $value);
         }
 
         return $this->expandArrayConfig($handle, $value);

@@ -23,7 +23,7 @@ class ZaengleResolver extends DefaultResolver
         if (is_array($paths)) {
             $paths = $paths[0];
         }
-        foreach($this->assemblePaths($paths) as $template) {
+        foreach ($this->assemblePaths($paths) as $template) {
             if (Craft::$app->view->doesTemplateExist($template)) {
                 return $template;
             }
@@ -42,9 +42,7 @@ class ZaengleResolver extends DefaultResolver
 
         $templateName = end($segments);
 
-
-        foreach($segments as $ignored)
-        {
+        foreach ($segments as $ignored) {
             array_pop($segments);
 
             $baseArray[] = implode(
