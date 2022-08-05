@@ -27,7 +27,8 @@
     "vlucas/phpdotenv": "^3.0",
     "phpstan/phpstan": "^1.7",
     "symplify/easy-coding-standard": "^10.2",
-    "craftcms/ecs": "dev-main"
+    "craftcms/ecs": "dev-main",
+    "pestphp/pest": "^1.21"
   },
   "autoload": {
     "psr-4": {
@@ -48,9 +49,14 @@
     "class": "zaengle\\conventions\\Conventions"
   },
   "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.0.21"
+    },
     "allow-plugins": {
       "yiisoft/yii2-composer": true,
-      "craftcms/plugin-installer": true
+      "craftcms/plugin-installer": true,
+      "pestphp/pest-plugin": true
     }
   },
   "minimum-stability": "dev",

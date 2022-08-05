@@ -5,6 +5,7 @@
 
 # COMPOSER
 /vendor
+.phpunit.result.cache
 
 # BUILD FILES
 /build/*
