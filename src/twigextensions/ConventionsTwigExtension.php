@@ -46,9 +46,9 @@ class ConventionsTwigExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        // Can we just return $this->generatePatternHelpers? Or just inline the generatePatternHelpers function altogether?
         return [
-          ...$this->generatePatternHelpers(),
+            ...$this->generatePatternHelpers(),
+            new TwigFunction('defineProps', [Conventions::getInstance()->props, 'defineProps']),
         ];
     }
 
@@ -59,7 +59,7 @@ class ConventionsTwigExtension extends AbstractExtension
         foreach (Conventions::$plugin->patternTypes->all() as $handle => $patternType) {
             $result[] = new TwigFunction(
                 $handle,
-                function(string $path, array $ctx = []) use ($patternType) {
+                function(string|array $path, array $ctx = []) use ($patternType) {
                     return Conventions::$plugin->pattern->render($patternType, $path, $ctx);
                 },
                 ['is_safe' => ['html']]

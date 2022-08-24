@@ -27,11 +27,17 @@ class PatternType extends Model
      */
     // Public Properties
     // =========================================================================
+    public string $handle;
     public array $params;
     public array $resolver;
 
     // Public Methods
     // =========================================================================
+
+    public function toString(): string
+    {
+        return $this->handle;
+    }
 
     /**
      * @inheritdoc
@@ -40,7 +46,7 @@ class PatternType extends Model
     {
         return [
           [
-            ['resolver'], 'required',
+            ['resolver', 'handle'], 'required',
           ],
           [
             ['params', 'resolver'], 'validateIsAssoc',
@@ -56,9 +62,10 @@ class PatternType extends Model
         ];
     }
 
-    public function validateResolverConfig(string $attribute): void
+    public function validateResolverConfig(string $attribute = 'resolver'): void
     {
         $resolverConfig = $this->$attribute;
+
         if (!array_key_exists('class', $resolverConfig)) {
             $this->addError($attribute, 'class not set');
         }
