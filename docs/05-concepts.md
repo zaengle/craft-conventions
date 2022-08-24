@@ -1,6 +1,6 @@
 # Concepts
 
-_You only really need to read this page if you either want to extend Conventions with a [custom resolver]('04-custom-resolvers.md') or if you are otherwise interested in the plugin internals_
+_You only really need to read this page if you either want to extend Conventions with a [custom resolver](./04-custom-resolvers.md) or if you are otherwise interested in the plugin internals_
 
 There are four key concepts to grasp when understanding how Conventions works:
 
