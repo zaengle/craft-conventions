@@ -1,6 +1,7 @@
 export default {
   title: 'Craft Conventions',
   description: 'Better #craftcms sites through strong conventions',
+  base: '/craft-conventions/',
   themeConfig: {
     logo: '/zaengle.svg',
     nav: [
