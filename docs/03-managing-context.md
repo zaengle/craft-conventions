@@ -13,7 +13,7 @@ Additionally, you can set up default rules that apply to all your `PatternType`s
 
 ## Why is it useful?
 
-- Reduce boilerplate defensive code to check that a variable exists before using ( no need for `{% set opts = opts ?? {} %}`)
+- Reduce boilerplate defensive code to check that a variable exists before using (no need for `{% set opts = opts ?? {} %}`)
 - Enforce naming patterns for context variables to increase consistency and making reasoning about (and refactoring of) your Patterns easier.
 
 ## Rule types
@@ -73,7 +73,7 @@ return [
 
 ## Context merging
 
-When applying any `ensure `context rules, context keys are merged where the value passed to the PatternType helper is an array or array like object.
+When applying any `ensure` context rules, context keys are merged where the value passed to the PatternType helper is an array or array like object.
 
-If an instance of a class (like `Element`) is passed, the default value will instead be overwritten, so as to maintain access to the class instance's methods (not just it's properties, as would be the case if it were coerced to an `array`).
+If an instance of a class (like `Element`) is passed, the default value will instead be overwritten, so as to maintain access to the class instance's methods (not just its properties, as would be the case if it were coerced to an `array`).
 

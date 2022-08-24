@@ -1,6 +1,7 @@
 # Using the expanded config syntax
 
-Conventions works "out of the box" for most users via the shorthand config but is also completely configurable  / customisable to your project's needs.
+
+Though Conventions works “out of the box” for most users via the shorthand config, it’s also completely configurable / customizable to your project’s needs.
 
 ## The expanded `PatternType` syntax
 
@@ -87,4 +88,4 @@ return [
 
 ## 3. Use a custom `Resolver`
 
-If you need / wish to you can further customise the plugin's behavior by writing a [custom resolver](./04-custom-resolvers.md). 
+If you need / wish to you can further customize the plugin's behavior by writing a [custom resolver](./04-custom-resolvers.md).
