@@ -1,0 +1,27 @@
+name: ci
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+  
+    - name: Install dependencies
+      uses: php-actions/composer@v6
+      with:
+        php_version: latest
+        args: --profile --ignore-platform-reqs
+    - name: Run phpstan
+      uses: php-actions/composer@v6
+      with:
+        command: run-script phpstan
+        php_version: latest
+    - name: Run Check ECS
+      uses: php-actions/composer@v6
+      with:
+        command: run-script check-cs
+        php_version: latest
