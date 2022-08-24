@@ -79,7 +79,7 @@ return [
 ];
 
 ```
-Conventions will auto-register two new twig functions: `component()` and `partial()`. Using the default [resolver](docs/05-concepts.md#resolvers), the paths passed as the first argument to one of these functions will be resolved within the subdirectory of your projects `templates/` directory defined by the value side of the definition.
+Conventions will auto-register two new twig functions: `component()` and `partial()`. Using the default [resolver](./05-concepts.md#resolvers), the paths passed as the first argument to one of these functions will be resolved within the subdirectory of your projects `templates/` directory defined by the value side of the definition.
 
 ### Templating
 
