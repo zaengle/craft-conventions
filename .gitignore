@@ -5,6 +5,7 @@
 
 # COMPOSER
 /vendor
+/node_modules
 
 # BUILD FILES
 /build/*
