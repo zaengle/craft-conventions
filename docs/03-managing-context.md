@@ -7,10 +7,9 @@ All Conventions Pattern render helper functions take two arguments: a string pat
 {# _components/blog/card.twig will be rendered with a `data` variable available set to the passed entry #}
 ```
 
-Every Pattern Type definition of can optionally include a set of rules for the context object that its Patterns expects.
+Every `PatternType` definition of can optionally include a set of rules for the context object that its `Pattern`s expects.
 
-Additionally, you can set up default rules that apply to all your Pattern Types in one go, and then override those rules if required.
-
+Additionally, you can set up default rules that apply to all your `PatternType`s in one go, and then override those rules as required.
 
 ## Why is it useful?
 
@@ -27,7 +26,7 @@ Three rule types are available:
 
 ## How to define context rules
 
-Rules are defined in `config/conventions.php` inside of the `params` key of either your `defaults` declaration (for global context rules) or within your Pattern Type definitions:
+Rules are defined in `config/conventions.php` inside of the `params` key of either your `defaults` declaration (for global context rules) or within your `PatternType` definitions:
 
 
 ```php
@@ -63,8 +62,18 @@ return [
           ],
           // a context key named `field` *must* be passed
           'require' => ['field'],
+          // a context key named `data` *must not* be passed
+          'reject' => ['data'],
         ],
     ],
 ];
 
 ```
+
+
+## Context merging
+
+When applying any `ensure `context rules, context keys are merged where the value passed to the PatternType helper is an array or array like object.
+
+If an instance of a class (like `Element`) is passed, the default value will instead be overwritten, so as to maintain access to the class instance's methods (not just it's properties, as would be the case if it were coerced to an `array`).
+
