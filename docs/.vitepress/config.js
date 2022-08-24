@@ -14,7 +14,7 @@ export default {
         items: [
           { text: 'Home', link: '/' },
           { text: 'Installation', link: '/00-installation' },
-          { text: 'Getting started', link: '/01-basic-usage' },
+          { text: 'Basic Usage', link: '/01-basic-usage' },
         ]
       },{
         text: 'Advanced Usage',
@@ -29,7 +29,8 @@ export default {
         text: 'Made with ❤️ by Zaengle',
         items: [
           { text: 'Be Nice, Do Good', link: 'https://zaengle.com/'},
-        ]
+          { text: 'MIT Licensed', link: 'https://mit-license.org/'},
+        ],
       }
     ]
   }
