@@ -9,6 +9,7 @@
 
 # BUILD FILES
 /build/*
+/docs/.vitepress/dist/
 
 # MISC FILES
 .cache
