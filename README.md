@@ -32,9 +32,8 @@ with just a single line definition in a config file.
 
 ## Conventions Roadmap
 
-- [ ] Release it (Packagist + Craft plugin store)
+- [ ] Tests!
 - [ ] Add generators for scaffolding new patterns
-- [ ] Context default helpers (e.g.
-- [ ] Better tests
+- [ ] Styleguide generator intergration 🧐
 
 Brought to you by [Zaengle Corp](https://zaengle.com/)
