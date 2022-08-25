@@ -1,3 +1,7 @@
+name: Dependabot
+on:
+  push:
+    branches: [ main ]
 version: 2
 updates:
   - package-ecosystem: "composer"
