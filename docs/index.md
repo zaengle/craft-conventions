@@ -1,10 +1,15 @@
 # Conventions Plugin for Craftcms 
 
+![Template example](./screenshots/template.twig.png)
+
 **At [Zaengle](https://zaengle.com) we know from experience that strong conventions make projects more consistent, and consistent projects are easier to work with**.
 
 Craft doesn't impose any particular structure on how you organize your templates. In some ways that freedom is great, but on larger sites things can quickly get out of hand without some organizing principles and the tools to enforce them.
 
 Conventions aims to solve just that problem with easy, readable, opinionated replacements for `include` that work for approximately ~97.32% of real world use cases. Using Conventions allows you to write more expressive template code that is easier to reason about, and easier to reuse.
+
+
+
 
 ## The trouble with `{% include %}`
 
