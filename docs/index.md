@@ -2,9 +2,9 @@
 
 **At [Zaengle](https://zaengle.com) we know from experience that strong conventions make projects more consistent, and consistent projects are easier to work with**.
 
-Craft doesn't impose any particular structure on how you organise your templates. In some ways that freedom is great, but on larger sites things can quickly get out of hand without some organising principles and the tools to enforce them. 
+Craft doesn't impose any particular structure on how you organize your templates. In some ways that freedom is great, but on larger sites things can quickly get out of hand without some organizing principles and the tools to enforce them.
 
-Conventions aims to solve just that problem, with easy, readable, opinionated replacements for `include` that work for approximately ~97.32% of real world use-cases. Using Conventions allows you to write more expressive template code that is easier to reason about, and easier to reuse.
+Conventions aims to solve just that problem with easy, readable, opinionated replacements for `include` that work for approximately ~97.32% of real world use cases. Using Conventions allows you to write more expressive template code that is easier to reason about, and easier to reuse.
 
 ## The trouble with `{% include %}`
 
@@ -12,7 +12,7 @@ Conventions aims to solve just that problem, with easy, readable, opinionated re
 
 1. If not used carefully, it can make it hard to reason about scope
 2. When used with common best practice (`only` / `ignore missing`) it is verbose, which makes it harder to quickly infer intent 
-3. It does nothing to help you organise your templates, leaving consistency up to developer discipline
+3. It does nothing to help you organize your templates, leaving consistency up to developer discipline
 
 ## Conventions helps you to manage scope
 
@@ -33,7 +33,7 @@ vs Conventions:
 {{ component(['card/#{entry.type.handle}', 'card/default'], { data: blogEntry }) }}
 ```
 
-## Conventions helps you to organise your templates
+## Conventions helps you to organize your templates
 
 Declaratively group like kinds of template fragment ("patterns") with like:
 

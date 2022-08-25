@@ -4,8 +4,8 @@ If the bundled Pattern resolvers don't fit your workflow, you can straightforwar
 
 Custom resolvers might be used for:
 
-- resolve wireframing patterns to vendor/
-- recursively resolving patterns by walking up the fs
+- resolve wireframing patterns to `vendor/`
+- recursively resolving patterns by walking up the filesystem
 - auditing component usage for consumption elsewhere
 
 ## Writing a resolver
@@ -93,10 +93,8 @@ return [
 ];
 ```
 
-`
-
 **Note:** If you wish to render a template from a non-standard source (like a composer package) you will need to register a [custom template root with Craft](https://craftcms.com/docs/4.x/extend/template-roots.html) in order for things to work.
 
 ## Context merging
 
-When applying any `ensure` context rules, context keys are merged where the value passed to the Pattern Type helper is an array or array like object. If an instance of a class (like `Element`) is passed, the default value will instead be overwritten, so as to maintain access to the class instance's methods (not just it's properties, as would be the case if it were coerced to an `array`).
+When applying any `ensure` context rules, context keys are merged where the value passed to the Pattern Type helper is an array or array-like object. If an instance of a class (like `Element`) is passed, the default value will instead be overwritten, so as to maintain access to the class instance's methods (not just its properties, as would be the case if it were coerced to an `array`).

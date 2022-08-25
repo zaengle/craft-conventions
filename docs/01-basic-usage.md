@@ -43,7 +43,7 @@ Any variables  you wish to use when rendering the Pattern's template must be exp
 
 ## The fallback template
 
-By default, if Conventions can't resolve the paths you provided to a template, it will look for a special template at `templates/missing.twig` to render instead. This template will have access to a `pattern` variable that you can use for rendered debug information. For example you might add something like this:
+By default, if Conventions can't resolve the paths you provided to a template, it will look for a special template at `templates/missing.twig` to render instead. This template will have access to a `pattern` variable that you can use for rendered debug information. For example, you might add something like this:
 
 ```twig
 {% if devMode %}
