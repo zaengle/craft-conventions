@@ -8,7 +8,6 @@
  * @copyright Copyright (c) 2022 Zaengle Corp
  */
 
-use zaengle\conventions\resolvers\DefaultResolver;
 /**
  * Conventions config.php
  *
@@ -24,77 +23,37 @@ use zaengle\conventions\resolvers\DefaultResolver;
  */
 
 return [
-  'patterns' => [
-      /**
-       * Shorthand config
-       *
-       * - Key name is the the key name becomes the template helper method (`{{ partial('my-partial')`)
-       */
-      // <PatternTypeHandle> => <TemplateSubDir>
-      'partial' => '_partials',
-      'field' => '_fields',
-      'component' => '_components',
-      /**
-       * The shorthand syntax ^^^ expands to this in the options syntax:
-       */
-      // '<PatternTypeHandle>' => [
-      //   'resolver' => [
-      //     'class' => \\pluginnamespace\\resolvers\\DefaultResolver',
-      //     // settings will be passed to the Resolver constructor
-      //     'settings' => [
-      //       'basePath' => '<TemplateSubDir>',
-      //     ],
-      //   ],
-      //   // Ensure that the following keys exist in the ctx passed to the pattern template
-      //   'params' => [
-      //     'ensure' => [
-      //       'data' => [],
-      //       'opts' => [],
-      //     ],
-      //     'require' => [],
-      //     'reject' => [],
-      //   ],
-      //   // These named params *must* be set in the ctx passed to the pattern template,
-      //   // or an error is thrown (at least in devMode anyway)
-      //   'requiredParamsequiredParams' => [],
-      //   // This is where the plugin can find the Scaffolder for this PatternType
-      //   'scaffold' => '\\pluginnamespace\\scaffolds\\DefaultScaffolder',
-      // ],
-
-      /**
-       * Customised / options syntax
-       */
-      // 'partial' => [
-      //     // A custom resolver could let us do things like
-      //     // - resolve wireframing patterns to vendor/
-      //     // - recursively resolve patterns by walking up the fs
-      //     // - audit component usage for consumption elsewhere
-      //     'resolver' => [
-      //         'class' => '\\module\\resolvers\\CustomResolver',
-      //         // it also might not require a `basePath`
-      //         'settings' => [],
-      //     ],
-      //     // a `data` key **must** be present in the ctx passed to the part, or else an error thrown (`devMode` only)
-      // ],
-  ],
-  'defaults' => [
-        'resolver' => [
-            'class' => DefaultResolver::class,
-            'settings' => [],
-        ],
-        // Ensure that the following keys exist in the ctx passed to the pattern template
+    /**
+     * Pattern Types (Shorthand config)
+     *
+     * A `patterns` associative array where:
+     * - Keys defines the name of the PatternType's template helper ( e.g. `{{ partial('my-partial')`)
+     * - Values define the subdirectory within CRAFT_TEMPLATES_PATH to resolve this pattern type within
+     *
+     * Advanced / options syntax is also available if the shorthand doesn't meet your needs, see
+     * vendor/zaengle/craft-conventions/docs/02-advanced-config.md
+     */
+    'patterns' => [
+        // <PatternTypeHandle> => <TemplateSubDir>
+        'partial' => '_partials',
+        'field' => '_fields',
+        'component' => '_components',
+    ],
+    /**
+     * Default
+     *
+     * These settings apply to all PatternTypes defined above
+     */
+    'defaults' => [
         'params' => [
             // Named params that *will be created if omitted*  in the ctx passed to the pattern template
-            'ensure' => [
-                'data' => [],
-                'opts' => [],
-            ],
+            'ensure' => [],
             // Named params that *must* be set in the ctx passed to the pattern template,
             // or an error is thrown (in devMode)
             'require' => [],
             // Named params that *must not* be set in the ctx passed to the pattern template,
             // or an error is thrown (in devMode)
             'reject' => [],
-        ]
+        ],
     ],
 ];
