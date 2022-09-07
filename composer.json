@@ -2,7 +2,6 @@
   "name": "zaengle/craft-conventions",
   "description": "Craft Conventions",
   "type": "craft-plugin",
-  "version": "1.0.0",
   "keywords": [
     "craft",
     "cms",
