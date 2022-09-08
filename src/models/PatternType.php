@@ -79,17 +79,17 @@ class PatternType extends Model
 
     public function getEnsuredContext(): array
     {
-        return $this->params['ensure'];
+        return $this->params['ensure'] ?? [];
     }
 
     public function getRequiredContextKeys(): array
     {
-        return $this->params['require'];
+        return $this->params['require'] ?? [];
     }
 
     public function getRejectedContextKeys(): array
     {
-        return $this->params['reject'];
+        return $this->params['reject'] ?? [];
     }
 
     public function validateIsAssoc(string $attribute): void
