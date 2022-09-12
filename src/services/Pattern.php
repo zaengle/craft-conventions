@@ -42,6 +42,45 @@ class Pattern extends Component
             'resolver' => new $patternType->resolver['class']($patternType->resolver['settings']),
         ]);
 
-        return $pattern->render();
+        return $this->addPatternComments($pattern);
+    }
+
+    /**
+     * Conditionally wrap Pattern output in HTML comments to make debugging / dev easier.
+     *
+     * Only applied in devMode by default
+     *
+     * @param PatternModel $pattern
+     *
+     * @return string
+     * @throws InvalidPatternModelException
+     */
+    protected function addPatternComments(PatternModel $pattern): string
+    {
+        $output = '';
+
+        if ($pattern->type->getOutputComments()) {
+            $output .= $this->wrapComment('<<< ' . mb_strtoupper($pattern->type->handle) . ' START ' . $pattern->template . ' WITH [' . join(', ', array_keys($pattern->getContext())) . '] >>>');
+        }
+
+        $output .= $pattern->render();
+
+        if ($pattern->type->getOutputComments()) {
+            $output .= $this->wrapComment('<<< ' . mb_strtoupper($pattern->type->handle) . ' END ' . $pattern->template . ' <<<');
+        }
+
+        return $output;
+    }
+
+    /**
+     * Wrap a string in an HTML comment
+     *
+     * @param string $content
+     *
+     * @return string
+     */
+    private function wrapComment(string $content): string
+    {
+        return PHP_EOL . '<!-- ' . $content . ' -->' . PHP_EOL;
     }
 }

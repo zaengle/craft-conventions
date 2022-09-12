@@ -22,6 +22,8 @@
  * you do for 'general.php'
  */
 
+use craft\helpers\App;
+
 return [
     /**
      * Pattern Types (Shorthand config)
@@ -55,5 +57,6 @@ return [
             // or an error is thrown (in devMode)
             'reject' => [],
         ],
+        'outputComments' => App::devMode(),
     ],
 ];

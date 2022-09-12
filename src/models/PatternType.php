@@ -11,12 +11,17 @@
 namespace zaengle\conventions\models;
 
 use craft\base\Model;
+use craft\helpers\App;
 use craft\helpers\ArrayHelper;
 
 /**
  * @author    Zaengle Corp
  * @package   zaengle\conventions
  * @since     1.0.0
+ *
+ * @property-read array $ensuredContext
+ * @property-read array $rejectedContextKeys
+ * @property-read array $requiredContextKeys
  */
 class PatternType extends Model
 {
@@ -30,6 +35,7 @@ class PatternType extends Model
     public string $handle;
     public array $params;
     public array $resolver;
+    public ?bool $outputComments;
 
     // Public Methods
     // =========================================================================
@@ -75,6 +81,10 @@ class PatternType extends Model
         if (!array_key_exists('settings', $resolverConfig)) {
             $this->addError($attribute, 'settings missing');
         }
+    }
+    public function getOutputComments(): bool
+    {
+        return $this->outputComments ?? App::devMode();
     }
 
     public function getEnsuredContext(): array
