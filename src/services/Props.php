@@ -11,6 +11,7 @@
 namespace zaengle\conventions\services;
 
 use craft\base\Component;
+use craft\base\Element;
 
 use zaengle\conventions\models\RelaxedModel;
 
@@ -24,7 +25,7 @@ class Props extends Component
     /**
      * Update a context container with default props
      */
-    public function defineProps(array|RelaxedModel $container, array $props): void
+    public function defineProps(array|Element|RelaxedModel $container, array $props): void
     {
         if ($container instanceof RelaxedModel) {
             $container->setMissingAttributes($props);
