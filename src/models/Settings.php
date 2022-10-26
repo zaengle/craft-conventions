@@ -22,10 +22,8 @@ class Settings extends Model
 {
     // Public Properties
     // =========================================================================
-
-    public string $handle;
-    public array $patterns;
-    public array $defaults;
+    public array $patterns = [];
+    public array $defaults = [];
 
     // Public Methods
     // =========================================================================
