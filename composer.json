@@ -2,6 +2,7 @@
     "name": "zaengle/craft-conventions",
     "description": "Craft Conventions",
     "type": "craft-plugin",
+    "version": "5.0.0-beta.1",
     "keywords": [
         "craft",
         "cms",
@@ -23,15 +24,16 @@
         }
     ],
     "require": {
-        "php": "^8.0 | ^8.1"
+        "php": "^8.2"
     },
     "require-dev": {
-        "craftcms/cms": "^4.1",
+        "craftcms/cms": "^5.0.0-beta.1",
         "craftcms/ecs": "dev-main",
-        "phpstan/phpstan": "^1.7",
-        "symplify/easy-coding-standard": "^10.2",
-        "vlucas/phpdotenv": "^5.4.0",
-        "codeception/codeception": "^4.0"
+        "craftcms/rector": "dev-main",
+        "nunomaduro/collision": "^8.1",
+        "pestphp/pest": "^2.34",
+        "roave/security-advisories": "dev-latest",
+        "symplify/easy-coding-standard": "^10.3"
     },
     "autoload": {
         "psr-4": {
