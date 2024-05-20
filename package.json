@@ -1,6 +1,5 @@
 {
   "name": "craft-conventions-docs",
-  "version": "1.0.0",
   "description": "Documentation for the Craftcms Conventions Plugin",
   "main": "docs/index.md",
   "repository": "git@github.com:zaengle/craft-conventions.git",
