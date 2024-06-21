@@ -6,11 +6,9 @@
 # COMPOSER
 /vendor
 /node_modules
-composer.lock
 # BUILD FILES
 /build/*
 /docs/.vitepress/dist/
-package-lock.json
 
 # MISC FILES
 .cache
