@@ -1,0 +1,1 @@
+import{_ as e,c as t,o,a1 as a}from"./chunks/framework.BwTyoF0R.js";const f=JSON.parse('{"title":"Concepts","description":"","frontmatter":{},"headers":[],"relativePath":"05-concepts.md","filePath":"05-concepts.md"}'),n={name:"05-concepts.md"},s=a("",21),r=[s];function i(l,c,p,d,h,m){return o(),t("div",null,r)}const g=e(n,[["render",i]]);export{f as __pageData,g as default};
