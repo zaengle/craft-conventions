@@ -1,9 +1,13 @@
-# Conventions Changelog
+# Release Notes for Conventions
 
-All notable changes to this project will be documented in this file.
+## 5.0.2 2024-05-20
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
+- Fixed more composer issues
 
-## 1.0.0 - 2022-05-30
-### Added
-- Initial release
+## 5.0.1 2024-05-20
+
+- Fixed composer / packagist issues
+
+## 5.0.0 - 2024-05-20
+
+- Added Craft 5 support.
