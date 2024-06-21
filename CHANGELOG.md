@@ -1,5 +1,9 @@
 # Release Notes for Conventions
 
+## 5.0.3 2024-06-21
+
+- Make Conventions work with the plugin store properly
+
 ## 5.0.2 2024-05-20
 
 - Fixed more composer issues
