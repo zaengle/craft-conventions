@@ -25,7 +25,7 @@ class RelaxedModel extends Model
     protected array $_attributes = [];
 
     /**
-     * Set passed attributes on the model if the don't exist already
+     * Set passed attributes on the model if they don't exist already
      * @param array $values assoc array of attr names => values
      */
     public function setMissingAttributes(array $values): void
