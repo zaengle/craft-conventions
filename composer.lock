@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19afcf130cc7697d6de1f70b0acd7908",
+    "content-hash": "6c1369a47f3f86217d39e92f876c54d1",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -8504,12 +8504,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "e6e8defa983fbeb0436f36a90d672bd58d8387d1"
+                "reference": "601ba5186e85dff8a3cc1feabe69e1a11805d9b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e6e8defa983fbeb0436f36a90d672bd58d8387d1",
-                "reference": "e6e8defa983fbeb0436f36a90d672bd58d8387d1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/601ba5186e85dff8a3cc1feabe69e1a11805d9b2",
+                "reference": "601ba5186e85dff8a3cc1feabe69e1a11805d9b2",
                 "shasum": ""
             },
             "conflict": {
@@ -8792,6 +8792,7 @@
                 "jsdecena/laracom": "<2.0.9",
                 "jsmitty12/phpwhois": "<5.1",
                 "juzaweb/cms": "<=3.4",
+                "jweiland/events2": "<8.3.8|>=9,<9.0.6",
                 "kazist/phpwhois": "<=4.2.6",
                 "kelvinmo/simplexrd": "<3.1.1",
                 "kevinpapst/kimai2": "<1.16.7",
@@ -8904,7 +8905,7 @@
                 "onelogin/php-saml": "<2.10.4",
                 "oneup/uploader-bundle": ">=1,<1.9.3|>=2,<2.1.5",
                 "open-web-analytics/open-web-analytics": "<1.7.4",
-                "opencart/opencart": "<=3.0.3.7|>=4,<4.0.2.3-dev",
+                "opencart/opencart": "<=3.0.3.9|>=4",
                 "openid/php-openid": "<2.3",
                 "openmage/magento-lts": "<20.5",
                 "opensolutions/vimbadmin": "<=3.0.15",
@@ -9068,6 +9069,7 @@
                 "statamic/cms": "<4.46|>=5.3,<5.6.2",
                 "stormpath/sdk": "<9.9.99",
                 "studio-42/elfinder": "<2.1.62",
+                "studiomitte/friendlycaptcha": "<0.1.4",
                 "subhh/libconnect": "<7.0.8|>=8,<8.1",
                 "sukohi/surpass": "<1",
                 "sulu/form-bundle": ">=2,<2.5.3",
@@ -9299,7 +9301,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-20T17:04:48+00:00"
+            "time": "2024-06-24T21:04:21+00:00"
         },
         {
             "name": "sebastian/cli-parser",
