@@ -12,7 +12,7 @@ namespace zaengle\conventions\services;
 
 use craft\base\Component;
 use craft\base\Element;
-use illuminate\Support\Collection;
+use Illuminate\Support\Collection;
 
 use zaengle\conventions\models\RelaxedModel;
 
@@ -25,6 +25,8 @@ class Props extends Component
 {
     /**
      * Update a context container with default props
+     *
+     * @param array|Element|RelaxedModel|Collection<string, mixed> $container
      */
     public function defineProps(array|Element|RelaxedModel|Collection $container, array $props): void
     {
