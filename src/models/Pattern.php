@@ -25,6 +25,7 @@ use zaengle\conventions\resolvers\ResolverInterface;
  * @since     1.0.0
  *
  * @property-read null|string $template
+ * @property ?string $output
  */
 class Pattern extends Model
 {
@@ -33,6 +34,7 @@ class Pattern extends Model
     // Public Properties
     // =========================================================================
     private ?string $_template = null;
+    private ?string $_output = null;
     public string|array $paths = [];
     public array $context;
     public ResolverInterface $resolver;
@@ -77,18 +79,15 @@ class Pattern extends Model
 
             $this->trigger(self::EVENT_BEFORE_RENDER, new PatternModelEvent([
                 'sender' => $this,
-                'context' => &$context,
             ]));
 
-            $output = Craft::$app->view->renderTemplate($this->template, $context);
+            $this->output = Craft::$app->view->renderTemplate($this->template, $context);
 
             $this->trigger(self::EVENT_AFTER_RENDER, new PatternModelEvent([
                 'sender' => $this,
-                'context' => &$context,
-                'output' => &$output,
             ]));
 
-            return $output;
+            return $this->output;
         }
 
         return $this->handleMissing();
@@ -154,6 +153,14 @@ class Pattern extends Model
         }
     }
 
+    public function setOutput(string $output): void
+    {
+        $this->_output = $output;
+    }
+    public function getOutput(): ?string
+    {
+        return $this->_output;
+    }
     /**
      * Ensure non-permitted keys not passed in the context
      * @param string $attribute
