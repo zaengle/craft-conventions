@@ -16,6 +16,7 @@ use craft\helpers\ArrayHelper;
 
 
 use zaengle\conventions\errors\InvalidPatternModelException;
+use zaengle\conventions\events\PatternModelEvent;
 use zaengle\conventions\resolvers\ResolverInterface;
 
 /**
@@ -27,6 +28,8 @@ use zaengle\conventions\resolvers\ResolverInterface;
  */
 class Pattern extends Model
 {
+    public const EVENT_BEFORE_RENDER = 'beforeRender';
+    public const EVENT_AFTER_RENDER = 'afterRender';
     // Public Properties
     // =========================================================================
     private ?string $_template = null;
@@ -69,10 +72,26 @@ class Pattern extends Model
             throw new InvalidPatternModelException($this);
         }
         if ($this->template && Craft::$app->view->doesTemplateExist($this->template)) {
-            return Craft::$app->view->renderTemplate($this->template, $this->getContext());
-        } else {
-            return $this->handleMissing();
+
+            $context = $this->getContext();
+
+            $this->trigger(self::EVENT_BEFORE_RENDER, new PatternModelEvent([
+                'sender' => $this,
+                'context' => &$context,
+            ]));
+
+            $output = Craft::$app->view->renderTemplate($this->template, $context);
+
+            $this->trigger(self::EVENT_AFTER_RENDER, new PatternModelEvent([
+                'sender' => $this,
+                'context' => &$context,
+                'output' => &$output,
+            ]));
+
+            return $output;
         }
+
+        return $this->handleMissing();
     }
 
     protected function handleMissing(): ?string
