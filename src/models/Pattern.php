@@ -25,7 +25,7 @@ use zaengle\conventions\resolvers\ResolverInterface;
  * @since     1.0.0
  *
  * @property-read null|string $template
- * @property ?string $output
+ * @property ?string $markup
  */
 class Pattern extends Model
 {
@@ -34,7 +34,7 @@ class Pattern extends Model
     // Public Properties
     // =========================================================================
     private ?string $_template = null;
-    private ?string $_output = null;
+    private ?string $_markup = null;
     public string|array $paths = [];
     public array $context;
     public ResolverInterface $resolver;
@@ -68,10 +68,13 @@ class Pattern extends Model
     /**
      * Render the Pattern to HTML
      */
-    public function render(): ?string
+    public function render(?bool $force = false): ?string
     {
         if (!$this->validate()) {
             throw new InvalidPatternModelException($this);
+        }
+        if (!$force && $this->getMarkup()) {
+            return $this->getMarkup();
         }
         if ($this->template && Craft::$app->view->doesTemplateExist($this->template)) {
 
@@ -81,13 +84,13 @@ class Pattern extends Model
                 'sender' => $this,
             ]));
 
-            $this->output = Craft::$app->view->renderTemplate($this->template, $context);
+            $this->markup = Craft::$app->view->renderTemplate($this->template, $context);
 
             $this->trigger(self::EVENT_AFTER_RENDER, new PatternModelEvent([
                 'sender' => $this,
             ]));
 
-            return $this->output;
+            return $this->markup;
         }
 
         return $this->handleMissing();
@@ -153,13 +156,13 @@ class Pattern extends Model
         }
     }
 
-    public function setOutput(string $output): void
+    public function setMarkup(string $output): void
     {
-        $this->_output = $output;
+        $this->_markup = $output;
     }
-    public function getOutput(): ?string
+    public function getMarkup(): ?string
     {
-        return $this->_output;
+        return $this->_markup;
     }
     /**
      * Ensure non-permitted keys not passed in the context
