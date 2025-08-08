@@ -1,5 +1,9 @@
 # Release Notes for Conventions
 
+## 5.1.1 2025-08-08
+
+- Dependencies updates
+
 ## 5.0.3 2024-06-21
 
 - Make Conventions work with the plugin store properly
