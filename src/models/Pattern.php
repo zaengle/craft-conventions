@@ -77,7 +77,6 @@ class Pattern extends Model
             return $this->getMarkup();
         }
         if ($this->template && Craft::$app->view->doesTemplateExist($this->template)) {
-
             $context = $this->getContext();
 
             $this->trigger(self::EVENT_BEFORE_RENDER, new PatternModelEvent([

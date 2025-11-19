@@ -9,5 +9,4 @@ class PatternModelEvent extends Event
     public ?array $context = null;
     public $sender;
     public ?string $output = '';
-
 }
