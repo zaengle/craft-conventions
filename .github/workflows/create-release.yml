@@ -1,6 +1,9 @@
 name: Create Release
 run-name: Create release for ${{ github.event.client_payload.version }}
 
+permissions:
+  contents: read
+
 on:
   repository_dispatch:
     types:
