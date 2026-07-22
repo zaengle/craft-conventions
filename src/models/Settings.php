@@ -10,7 +10,7 @@
 
 namespace zaengle\conventions\models;
 
-use craft\base\Model;
+use CraftCms\Cms\Plugin\PluginSettings;
 use zaengle\conventions\resolvers\DefaultResolver;
 
 /**
@@ -18,7 +18,7 @@ use zaengle\conventions\resolvers\DefaultResolver;
  * @package   zaengle\conventions
  * @since     1.0.0
  */
-class Settings extends Model
+class Settings extends PluginSettings
 {
     // Public Properties
     // =========================================================================

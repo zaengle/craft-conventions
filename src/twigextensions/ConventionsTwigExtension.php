@@ -48,7 +48,7 @@ class ConventionsTwigExtension extends AbstractExtension
     {
         return [
             ...$this->generatePatternHelpers(),
-            new TwigFunction('defineProps', [Conventions::getInstance()->props, 'defineProps']),
+            new TwigFunction('defineProps', [Conventions::$plugin->props, 'defineProps']),
         ];
     }
 

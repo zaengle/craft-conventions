@@ -58,7 +58,7 @@ class RelaxedModel extends Model
      *
      * @inheritdoc
      */
-    public function attributes()
+    public function attributes(): array
     {
         return array_merge(parent::attributes(), $this->_attributes);
     }

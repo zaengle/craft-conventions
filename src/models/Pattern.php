@@ -119,8 +119,8 @@ class Pattern extends Model
         foreach ($this->getAllKeys($ensured, $this->context) as $key) {
             $relaxedModel = new RelaxedModel();
             if (!isset($this->context[$key])) {
-                // use fallback
-                $relaxedModel->setAttributes($ensured[$key]);
+                // use fallback ($ensured[$key] is absent when the context value is null)
+                $relaxedModel->setAttributes($ensured[$key] ?? []);
                 $ctx[$key] = $relaxedModel;
             } elseif (!is_array($this->context[$key])) {
                 // don't merge, value is probably a query / element

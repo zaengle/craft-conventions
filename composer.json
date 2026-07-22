@@ -23,7 +23,8 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^4.0.1||^5.0.0",
+        "craftcms/cms": "^6.0.0-alpha.1",
+        "craftcms/yii2-adapter": "*",
         "php": "^8.2 | ^8.3"
     },
     "require-dev": {
@@ -46,13 +47,14 @@
         "developerUrl": "https://zaengle.com/",
         "documentationUrl": "https://craft-conventions.zaengle.com",
         "changelogUrl": "https://raw.githubusercontent.com/zaengle/craft-conventions/master/CHANGELOG.md",
-        "components": {
-            "pattern": "zaengle\\conventions\\services\\Pattern",
-            "scaffold": "zaengle\\conventions\\services\\Scaffold"
-        },
         "class": "zaengle\\conventions\\Conventions",
         "hasCpSettings": false,
-        "hasCpSection": false
+        "hasCpSection": false,
+        "laravel": {
+            "providers": [
+                "zaengle\\conventions\\Conventions"
+            ]
+        }
     },
     "config": {
         "sort-packages": true,

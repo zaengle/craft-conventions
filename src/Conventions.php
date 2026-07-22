@@ -11,7 +11,7 @@
 namespace zaengle\conventions;
 
 use Craft;
-use craft\base\Plugin;
+use CraftCms\Cms\Plugin\Plugin;
 use craft\console\Application as ConsoleApplication;
 use craft\web\twig\variables\CraftVariable;
 
@@ -69,16 +69,56 @@ class Conventions extends Plugin
      */
     public bool $hasCpSection = false;
 
+    /**
+     * @var PatternService
+     */
+    public PatternService $pattern;
+
+    /**
+     * @var PatternTypeService
+     */
+    public PatternTypeService $patternTypes;
+
+    /**
+     * @var PropsService
+     */
+    public PropsService $props;
+
+    /**
+     * @var ScaffoldService
+     */
+    public ScaffoldService $scaffold;
+
+    /**
+     * @var string|null
+     */
+    public ?string $controllerNamespace = null;
+
     // Public Methods
     // =========================================================================
 
     /**
      * @inheritdoc
      */
-    public function init(): void
+    public function bootPlugin(): void
     {
-        parent::init();
         self::$plugin = $this;
+
+        // $handle can be uninitialised here depending on boot order; ensure it.
+        if (!isset($this->handle)) {
+            $this->handle = 'conventions';
+        }
+
+        // The booted provider instance doesn't receive Craft's config-merged settings; load them.
+        $fileConfig = config('craft.conventions', []);
+        if (!empty($fileConfig)) {
+            $this->setSettings($fileConfig);
+        }
+
+        $this->pattern = new PatternService();
+        $this->patternTypes = new PatternTypeService();
+        $this->props = new PropsService();
+        $this->scaffold = new ScaffoldService();
 
         Craft::$app->view->registerTwigExtension(new ConventionsTwigExtension());
 
@@ -86,15 +126,7 @@ class Conventions extends Plugin
             $this->controllerNamespace = 'zaengle\conventions\console\controllers';
         }
 
-        $this->setComponents([
-            'pattern' => PatternService::class,
-            'patternTypes' => PatternTypeService::class,
-            'props' => PropsService::class,
-            'scaffold' => ScaffoldService::class,
-        ]);
-
         $this->configureLogger();
-
         $this->bindEventHandlers();
 
         self::log('Conventions plugin loaded');
